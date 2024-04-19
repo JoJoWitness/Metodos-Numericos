@@ -1,13 +1,13 @@
-function [ root, iter ] = NewtonRaphson(x0,tol,imax)
+function [ root, iter ] = NewtonRa(f, df,x0,tol,imax)
   x = x0;
 for i = 1:imax
-  a = fun(x);
-  b = diffFun(x);
+  a = f(x);
+  b = df(x);
   r =  x - a/b;
   
   if(abs(r - x) < tol)
-      root = r
-      iter = i
+      root = r;
+      iter = i;
       break;
   end
   x=r;
@@ -20,11 +20,12 @@ end
 
 end
 
-function f = fun(x)
-f = x-exp(1)^-x;
-end
 
-function fu = diffFun(x)
-fu = 1+exp(1)^-x;
-end
+f = @(x) (x.^2 - 6);
+df = @(x) (2*x);
+
+[root, iter] = NewtonRa(f, df,1,10^-4,30);
+
+fprintf("The root of the function is: %d", root);
+
 

@@ -5,7 +5,7 @@ function [coef,value] = polyLagrange(x,y,t)
     value=zeros(t_length);
     
     for k=1:x_length
-        v=1;
+        v=1; 
         for j=1:x_length
             if k ~= j
                 v=conv(v, poly(x(j)))./(x(k)-x(j));
@@ -19,7 +19,6 @@ function [coef,value] = polyLagrange(x,y,t)
     for i=1:t_length
             value(i) = polyval(coef, t(i));
     end
-
 end
 
 % x=[1960 1970 1980 1990 2000 2010];
@@ -31,7 +30,7 @@ y=cos(x);
 t=pi/4;
 
 
-[coef, value,aprox] = polyLagrange(x,y,t);
+[coef, value] = polyLagrange(x,y,t);
 
 display(coef)
 for i=1:length(t)

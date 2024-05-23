@@ -1,12 +1,12 @@
-function [x] = Cholesky(A,b)
+function [x] = F_Cholesky(A,b)
 
 L = chol(A,'lower');
-R = L';
+R = L;
 i=1;
 [n] = size(A);
 cont = 0;
 
-  if A==A'
+  if A==A
       fprintf('\nLa matriz es simetrica\n');
       
       while i<=n(1)
@@ -22,14 +22,14 @@ cont = 0;
       
       if cont==n(1)
           fprintf('\nLa matriz es positiva\n');
-          y = inv(L)*b;
-          x = inv(R)*y;
+          y = L\b;
+          x = R\y;
       end    
   end
 end
 
-A = [1 3 5 7; 2 -2 3 5; 0 0 2 5; -2 -6 -3 1];
-b = [1;2;3;4];
+A = [4 1 1 1; 1 3 -1 1; 1 -1 2 0; -1 1 0 2];
+b = [0.65;0.05;0;0/5];
 
-x =Cholesky(A,b)
+x =F_Cholesky(A,b);
 disp(x);

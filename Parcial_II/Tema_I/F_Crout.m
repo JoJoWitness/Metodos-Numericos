@@ -1,29 +1,36 @@
-function [x] = Crout(A, b)
+function [L, U] = tridecrout(A)
 
-n=size(A)
-L(1,1) = A(1,1);
-U(1,2) = A(1,2)/L(1,1);
-y(1) = b(1)/L(1,1);
+    n = size(A, 1);
 
-for i=2:n-1;
-   L(i,i-1) = A(i,i-1);
-   L(i,i) = A(i,i) - (L(i,i-1)*U(i-1,i));
-   U(i,i+1) = A(i,i+1)/L(i,i);
-   y(i) = (b(i)-(L(i,i-1)*y(i-1)))/L(i,i);
+    L = zeros(n, n);
+    U = eye(n, n);  
+    
+    % Descomposición LU usando el algoritmo de Crout
+    for i = 1:n
+        for j = 1:i
+            if j == 1
+                L(i, j) = A(i, j);
+            else
+                L(i, j) = A(i, j) - sum(L(i, 1:j-1) .* U(1:j-1, j)');
+            end
+        end
+        
+        for j = i+1:n
+            U(i, j) = (A(i, j) - sum(L(i, 1:i-1) .* U(1:i-1, j)')) / L(i, i);
+        end
+    end
 end
 
-L(n,n-1)=A(n,n-1);
-L(n,n) = A(n,n)-(L(n,n-1)*U(n-1,n));
-y(n) = (b(n)-(L(n,n-1)*y(n-1)))/L(n,n);
-
-x(n) = y(n);
-for i=1:n-1;
-    x(n-i) = y(n-i)-(U(n-i,n-i+1)*x(n-i+1));
+function [X]=trisolve(L,U,b)
+  y=L\b;
+  X=U\y;
 end
 
-end
+A = [10 5 0 0 ; 5 10 -4 0; 0 -4 8 -1;0 0 -1 5];
+b =[6;25;-11;-11]
 
-A = [1 3 5 7; 2 -2 3 5; 0 0 2 5; -2 -6 -3 1];
-b = [1;2;3;4];
-x = Crout(A,b);
-disp(x);
+[L, U] = tridecrout(A)
+
+[X]=trisolve(L,U,b)
+
+display(X)

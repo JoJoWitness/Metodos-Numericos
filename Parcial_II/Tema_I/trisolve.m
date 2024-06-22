@@ -1,4 +1,4 @@
 function [X]=trisolve(L,U,b)
-y=L\b;
-X=U\y;
+  y=L\b;
+  X=U\y;
 end

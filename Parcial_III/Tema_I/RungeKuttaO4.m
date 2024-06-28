@@ -1,4 +1,4 @@
-function [t,w] = eulerPuntoMedio(f,a,b,alpha,h)
+function [t,w] = RK(f,a,b,alpha,h)
 
   t = a:h:b
   N = length(t);
@@ -24,7 +24,7 @@ b=0.5;
 alpha=@(y) 0.25*y;
 h=0.001
 
-[t,w] = euler(f,a,b,alpha,h)
+[t,w] = RK(f,a,b,alpha,h)
 
 display(t);
 display(w);

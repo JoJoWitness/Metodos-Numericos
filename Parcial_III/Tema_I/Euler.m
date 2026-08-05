@@ -1,4 +1,6 @@
-function [t,w] = euler(f,a,b,alpha,h)
+1
+
+function [t,w] = Euler(f,a,b,alpha,h)
 
   N = (b-a)/h;
   t= a:h:b;
@@ -16,10 +18,5 @@ b=2;
 alpha=0.5;
 h=0.5;
 
-[t,w] = euler(f,a,b,alpha,h)
-
-display(t);
-display(w);
-
-
+[t,w] = Euler(f,a,b,alpha,h)
 

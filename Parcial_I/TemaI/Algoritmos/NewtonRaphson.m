@@ -1,3 +1,5 @@
+1
+
 function [ root, iter ] = NewtonRa(f, df,x0,tol,imax)
   x = x0;
 for i = 1:imax
@@ -21,10 +23,9 @@ end
 end
 
 
-f = @(x) (x.^2 - 6);
-df = @(x) (2*x);
-
-[root, iter] = NewtonRa(f, df,1,10^-4,30);
+f = @(x) (exp(x)+2.^(-x)+2*cos(x)-6);
+df = @(x) (exp(x)-log(2)*2.^(-x)-2*sin(x));
+[root, iter] = NewtonRa(f, df,1,10^-6,30);
 
 fprintf("The root of the function is: %d", root);
 

@@ -1,3 +1,5 @@
+1
+
 %Metodo de la bisccion
 
 function [root, iter] = Bisection(f,a0,b0,tol,imax)
@@ -11,31 +13,22 @@ function [root, iter] = Bisection(f,a0,b0,tol,imax)
           a = r;
       else
           fprintf('There was a fatal error in the code or function')
-      end
-      
+      end 
       if (abs(f(r)) < tol) 
           root = r;
           iter = i;
           break
       end 
   end
-  
   if i == imax
      fprintf('The solution was out of the iteration bounds')
-  end
-
-  
+  end  
 end
 
-% function f = fun(x)
-%   %f = x -exp(1)^-x;
-%   %f= x-25^(1/3);   
-%   f = sqrt(x) - cos(x);
-% end
 
-f = @(x) (sqrt(x) - cos(x));
+f = @(x) (exp(x)+2.^(-x)+2*cos(x)-6);
 
-[root, iter] = Bisection(f,0,1,10^-5,30);
+[root, iter] = Bisection(f,1,2,10^-6,100);
 
 fprintf("The root is: %d\n", root);
 fprintf("The iteration neccessary where: %d", iter)
